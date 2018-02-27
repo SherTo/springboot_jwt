@@ -13,6 +13,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -21,14 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-
 public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
 
-    @Value("${jwt.jwtsecret}")
-    private String jwtsecret;
-
-    @Value("${jwt.authorization}")
-    private String authorization;
     AuthenticationManager authenticationManager;
 
     public JWTLoginFilter(AuthenticationManager authenticationManager) {
@@ -59,10 +54,10 @@ public class JWTLoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = Jwts.builder()
                 .setSubject(auth.getPrincipal().toString())
                 .setExpiration(new Date(System.currentTimeMillis() + 30 * 60 * 1000))
-                .signWith(SignatureAlgorithm.HS512, jwtsecret)
+                .signWith(SignatureAlgorithm.HS512, "JWTSecret")
                 .compact();
         System.out.println("token:" + token);
-        response.addHeader(authorization, token);
+        response.addHeader("Authorization", token);
     }
 
     @Override

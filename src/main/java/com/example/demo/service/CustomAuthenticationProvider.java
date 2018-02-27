@@ -28,12 +28,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         this.userDetailsService = userDetailsService;
     }
 
-//    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
-//    public CustomAuthenticationProvider(UserDetailsService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder){
-//        this.userDetailsService = userDetailsService;
-//        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
-//    }
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
